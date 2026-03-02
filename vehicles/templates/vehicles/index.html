@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vehicle ML Dashboard</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+  <style>
+    body {
+      background-color: #F4F6F9;
+    }
+
+    h1 {
+      font-weight: 700;
+    }
+
+    .card {
+      border-radius: 12px;
+    }
+
+    .card-header {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .table {
+      font-size: 14px;
+    }
+
+    .table-responsive {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 600px;
+      overflow:auto;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container mt-5">
+
+  <h1 class="text-center text-primary mb-5">
+    Vehicle Machine Learning Dashboard
+  </h1>
+
+  <!-- 1️⃣ Manufacturer Frequency -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-info text-white">Frequency Table: Manufacturer</div>
+    <div class="card-body table-responsive">{{ manufacturer_frequency_table|safe }}</div>
+  </div>
+
+  <!-- 2️⃣ Dataset Preview -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-secondary text-white">Dataset Preview</div>
+    <div class="card-body table-responsive">{{ dataset_table|safe }}</div>
+  </div>
+
+  <!-- 3️⃣ Describe Statistics -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-success text-white">Dataset Description (Statistics)</div>
+    <div class="card-body table-responsive">{{ description_table|safe }}</div>
+  </div>
+
+  <!-- 4️⃣ Group By Analysis -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-warning text-dark">Group By Selling Price Analysis</div>
+    <div class="card-header bg-warning text-dark">y3c</div>
+    <div class="card-body table-responsive">{{ groupby_table|safe }}</div>
+  </div>
+
+  <!-- 5️⃣ Pivot Table -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-primary text-white">Pivot Table Analysis</div>
+    <div class="card-body table-responsive">{{ pivot_table|safe }}</div>
+  </div>
+
+  <!-- 6️⃣ Crosstab Analysis -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-dark text-white">Cross Tabulation Analysis</div>
+    <div class="card-body table-responsive">{{ crosstab_table|safe }}</div>
+  </div>
+
+  <!-- 7️⃣ Aggregate Functions -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-danger text-white">Aggregate Function Analysis</div>
+    <div class="card-body table-responsive">{{ aggregate_table|safe }}</div>
+  </div>
+
+  <!-- 8️⃣ Sunburst Chart -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-info text-white">Sunburst Chart: Manufacturer → Fuel → Transmission → Profit/Loss</div>
+    <div class="card-body chart-container">{{ sunburst_div|safe }}</div>
+  </div>
+
+  <!-- 9️⃣ Treemap Chart -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-secondary text-white">Treemap: Manufacturer → Fuel → Transmission → Profit/Loss</div>
+    <div class="card-body chart-container">{{ treemap_div|safe }}</div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</body>
+</html>
