@@ -10,7 +10,8 @@ from .dashboard import (
     aggre_func,
     sunburst_chart,
     treemap_chart,
-    y3c
+    y3c,
+    visualizing_clients_world_map  
 )
 
 
@@ -28,4 +29,5 @@ def dashboard_view(request):
         "aggregate_table": aggre_func(df),
         "sunburst_div": sunburst_chart(df),
         "treemap_div": treemap_chart(df),
+        "world_map_div": visualizing_clients_world_map(df)
     })

@@ -1,6 +1,7 @@
 import plotly.express as px
 import plotly.offline as opy
 import pandas as pd
+import plotly.graph_objects as go
 
 def y3c(df):
     df.groupby("manufacturer").agg({
@@ -183,4 +184,32 @@ def visualizing_sales_with_treemap_chart(df,height=800):
         ),
     ],  )
     
+    return opy.plot(fig, auto_open=False, output_type='div')
+
+
+def visualizing_clients_world_map(df, height=800):
+
+    fig = go.Figure(data=go.Choropleth(
+        locations=df['country'],
+        locationmode='country names',
+        z=df['num_clients'],
+        colorscale='Blues',
+        colorbar_title="Clients",
+    ))
+
+    fig.update_layout(
+        title_text='🌍 Number of Clients per Country',
+        title_x=0.5,
+        height=height,
+        geo=dict(showframe=False, showcoastlines=True)
+    )
+
+    # Add country labels
+    fig.add_trace(go.Scattergeo(
+        locationmode='country names',
+        locations=df['country'],
+        text=df['country'] + "<br>" + df['num_clients'].astype(str),
+        mode='text',
+    ))
+
     return opy.plot(fig, auto_open=False, output_type='div')
