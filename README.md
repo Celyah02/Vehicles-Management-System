@@ -89,4 +89,4 @@ Software Developer | UI/UX Designer
 
 📜 License
 
-This project is for educational and learning purposes.
+This project is for educational, learning and commercial purposes.
