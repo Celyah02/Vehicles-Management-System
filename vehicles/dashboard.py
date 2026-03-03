@@ -82,27 +82,7 @@ def pivot_table_analysis(df):
 # 6️⃣ Cross Tabulation
 def crosstab_analysis(df):
     cross_tab = pd.crosstab(
-       [ df["manufacturer"], df["body_type"]],df["transmission"]
-    )
-
-    return cross_tab.to_html(
-        classes="table table-hover table-striped table-bordered align-middle text-center"
-    )
-
-# 6️⃣ Cross Tabulation
-def crosstab_analysis(df):
-    cross_tab = pd.crosstab(
-       [ df["manufacturer"], df["body_type"]], [df["transmission"],df["vehicle_condition"]]
-    )
-
-    return cross_tab.to_html(
-        classes="table table-hover table-striped table-bordered align-middle text-center"
-    )
-
-# 6️⃣ Cross Tabulation
-def crosstab_analysis(df):
-    cross_tab = pd.crosstab(
-        df["manufacturer"], df["body_type"], values=df["selling_price"],aggfunc=["sum","count"],margins=True
+        df["manufacturer"], df["body_type"], values=df["selling_price"],aggfunc=["sum",get_range]
     )
 
     return cross_tab.to_html(
