@@ -68,11 +68,10 @@ def group_by_selling_price(df):
 def pivot_table_analysis(df):
     pivot = pd.pivot_table(
         df,
-        values="selling_price",
-        index="manufacturer",
-        columns="fuel_type",
-        aggfunc="mean"
-    ).round(2)
+        values=["selling_price","wholesale_price"],
+        index=["client_continent","client_country","manufacturer"],
+        aggfunc=["max","min","sum"]
+    )
 
     return pivot.to_html(
         classes="table table-hover table-striped table-bordered align-middle text-center"
@@ -82,7 +81,7 @@ def pivot_table_analysis(df):
 # 6️⃣ Cross Tabulation
 def crosstab_analysis(df):
     cross_tab = pd.crosstab(
-        df["manufacturer"], df["body_type"], values=df["selling_price"],aggfunc=["sum",get_range]
+        df["manufacturer"], df["body_type"], values=df["selling_price"],aggfunc=["sum","count"]
     )
 
     return cross_tab.to_html(
@@ -101,25 +100,32 @@ def aggre_func(df):
 
 
 # 8️⃣ Sunburst Chart
-def sunburst_chart(df):
-    df_copy = df.copy()
-    df_copy['profit'] = df_copy['selling_price'] - df_copy['wholesale_price']
-    df_copy['profit_or_loss'] = df_copy['profit'].apply(
-        lambda x: 'Profit' if x > 0 else ('Loss' if x < 0 else 'Break-even')
-    )
+# def sunburst_chart(df):
+#     df_copy = df.copy()
+#     df_copy['profit'] = df_copy['selling_price'] - df_copy['wholesale_price']
+#     df_copy['profit_or_loss'] = df_copy['profit'].apply(
+#         lambda x: 'Profit' if x > 0 else ('Loss' if x < 0 else 'Break-even')
+#     )
 
-    fig = px.sunburst(
-        df_copy,
-        path=['manufacturer', 'fuel_type', 'transmission', 'profit_or_loss'],
-        values='selling_price',
-        color='profit',
-        color_continuous_scale='RdYlGn',
-        title="Sunburst: Manufacturer → Fuel → Transmission → Profit/Loss",
-        hover_data=['selling_price', 'wholesale_price', 'profit']
-    )
+#     fig = px.sunburst(
+#         df_copy,
+#         path=['manufacturer', 'fuel_type', 'transmission', 'profit_or_loss'],
+#         values='selling_price',
+#         color='profit',
+#         color_continuous_scale='RdYlGn',
+#         title="Sunburst: Manufacturer → Fuel → Transmission → Profit/Loss",
+#         hover_data=['selling_price', 'wholesale_price', 'profit']
+#     )
 
-    div = opy.plot(fig, auto_open=False, output_type='div')
-    return div
+#     div = opy.plot(fig, auto_open=False, output_type='div')
+#     return div
+
+#sunburst chart
+def visualizing_sales_with_sunburst_chart(df,height=800):
+    fig=px.sunburst(df,path=['manufacturer','body_type','transmission'],values='selling_price',color='selling_price',color_continuous_scale='RdYlGn',title="Sunburst: Manufacturer → Body Type → Transmission")
+    fig.update_traces(textinfo='label+value')
+    fig.update_layout(height=height)
+    return opy.plot(fig, auto_open=False, output_type='div')
 
 
 # 9️⃣ Treemap Chart
