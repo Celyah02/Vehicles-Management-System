@@ -186,7 +186,7 @@ def visualizing_sales_with_treemap_chart(df,height=800):
     
     return opy.plot(fig, auto_open=False, output_type='div')
 
-
+# 10️⃣ World Map of Clients
 def visualizing_clients_world_map(df, height=800):
 
     fig = go.Figure(data=go.Choropleth(
